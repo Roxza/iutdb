@@ -1,0 +1,14 @@
+{
+    "custom": {
+      "dbType": "json",
+      "dbFile": "data",
+      "dbLang": "en"
+    },
+    "default": {
+      "default": {
+        "dbType": "json",
+        "dbFile": "data",
+        "dbLang": "en"
+      }
+    }
+  }

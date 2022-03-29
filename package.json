@@ -1,0 +1,32 @@
+{
+  "name": "iutdb",
+  "version": "2.1.0",
+  "description": "A JSON and SQLİTE database module",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app.js"
+  },
+  "author": "Roxza#0002",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Roxza/iutdb.git"
+  },
+  "keywords": [
+    "database",
+    "json",
+    "sqlite",
+    "iutdb",
+    "roxza"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "better-sqlite3": "^7.5.0",
+    "deasync": "^0.1.24",
+    "lodash.get": "^4.4.2",
+    "lodash.set": "^4.3.2",
+    "lodash.unset": "^4.5.2",
+    "lowdb": "^1.0.0",
+    "node-fetch": "^3.2.3",
+    "getweb": "0.0.2"
+  }
+}
