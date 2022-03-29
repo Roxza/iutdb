@@ -4,9 +4,21 @@ const settingsConfig = require("./settings.json");
 
 class iutdb {
    constructor(settings) {
-      this.dbFile = settings["dbFile"].toLowerCase() || settingsConfig.default.default.dbFile;
-      this.dbLang = settings["dbLang"].toLowerCase() || settingsConfig.default.default.dbLang;
-      this.dbType = settings["dbType"].toLowerCase() || settingsConfig.default.default.dbType;
+      this.dbFile = settings["dbFile"].toLowerCase();
+      this.dbLang = settings["dbLang"].toLowerCase();
+      this.dbType = settings["dbType"].toLowerCase();
+
+      /* Language */
+      const langs = ["tr", "en"];
+      if (!langs.includes(this.dbLang)) throw new TypeError("Please select a valid language; 'EN','TR'");
+      if (!this.dbLang) throw new Error("Please use properly for more information https://www.npmjs.com/package/iutdb");
+      const language = require("./config/" + this.dbLang + ".js");
+      /* Database File Check*/
+      if (!this.dbFile) throw new Error(language.file_not_found);
+      /* Database Type Check */
+      const types = ["sqlite", "json"];
+      if (!types.includes(this.dbType)) throw new TypeError(language.types);
+      if (!this.dbType) throw new Error(language.type_not_found);
 
       /* Set */
       const low = require("lowdb");
@@ -30,23 +42,12 @@ class iutdb {
          .write();
       this.settingsDB
          .set("custom", {
-            dbType: this.dbType,
-            dbFile: this.dbFile,
-            dbLang: this.dbLang
+            dbType: this.dbType || settingsConfig.default.default.dbType,
+            dbFile: this.dbFile || settingsConfig.default.default.dbFile,
+            dbLang: this.dbLang || settingsConfig.default.default.dbLang
          })
          .write();
 
-      /* Language */
-      const langs = ["tr", "en"];
-      if (!langs.includes(this.dbLang)) throw new TypeError("Please select a valid language; 'EN','TR'");
-      if (!this.dbLang) throw new Error("Please use properly for more information https://www.npmjs.com/package/iutdb");
-      const language = require("./config/" + this.dbLang + ".js");
-      /* Database File Check*/
-      if (!this.dbFile) throw new Error(language.file_not_found);
-      /* Database Type Check */
-      const types = ["sqlite", "json"];
-      if (!types.includes(this.dbType)) throw new TypeError(language.types);
-      if (!this.dbType) throw new Error(language.type_not_found);
       /* Constructors */
       this.set = this.constructor.set;
       this.delete = this.constructor.delete;
